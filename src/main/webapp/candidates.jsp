@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="ru.job4j.dream.store.Store" %>
 <%@ page import="ru.job4j.dream.model.Candidate" %>
+<%@ page import="java.util.Collection" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -22,6 +23,10 @@
     <title>Работа мечты</title>
 </head>
 <body>
+<%
+    Collection<Candidate> candidates = request.getAttribute("candidates") == null ? Store.instOf().findAllCandidates() : (Collection<Candidate>) request.getAttribute("candidates");
+%>
+
 <div class="container pt-3">
     <div class="row">
         <div class="card" style="width: 100%">
@@ -36,7 +41,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <% for (Candidate candidate : Store.instOf().findAllCandidates()) { %>
+                    <% for (Candidate candidate : (Collection<Candidate>) request.getAttribute("candidates")) { %>
                     <tr>
                         <td>
                             <a href="<%=request.getContextPath()%>/candidate/edit.jsp?id=<%=candidate.getId()%>">

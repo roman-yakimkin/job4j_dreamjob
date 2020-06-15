@@ -8,6 +8,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="ru.job4j.dream.store.Store" %>
 <%@ page import="ru.job4j.dream.model.Post" %>
+<%@ page import="java.util.Collection" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -29,6 +30,9 @@
     <title>Работа мечты</title>
 </head>
 <body>
+<%
+    Collection<Post> posts = request.getAttribute("posts") == null ? Store.instOf().findAllPosts() : (Collection<Post>) request.getAttribute("posts");
+%>
 <div class="container pt-3">
     <div class="row">
         <div class="card" style="width: 100%">
@@ -43,7 +47,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <% for (Post post : Store.instOf().findAllPosts()) { %>
+                    <% for (Post post : posts) { %>
                     <tr>
                         <td>
                             <a href="<%=request.getContextPath()%>/post/edit.jsp?id=<%=post.getId()%>">
