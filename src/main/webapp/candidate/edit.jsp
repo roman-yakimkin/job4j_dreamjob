@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="ru.job4j.dream.store.Store" %>
 <%@ page import="ru.job4j.dream.model.Candidate" %>
@@ -26,28 +27,22 @@
     <title>Работа мечты</title>
 </head>
 <body>
-<%
-    String id = request.getParameter("id");
-    Candidate candidate = new Candidate(0, "");
-    if (id != null) {
-        candidate = Store.instOf().findCandidateById(Integer.valueOf(id));
-    }
-%>
 <div class="container pt-3">
     <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">
-                <% if (id == null) { %>
-                Новый кандидат.
-                <% } else { %>
-                Редактирование кандидата.
-                <% } %>
+                <c:if test="${id == null}">
+                    Новая вакансия
+                </c:if>
+                <c:if test="${id != null}">
+                    Редактирование вакансии
+                </c:if>
             </div>
             <div class="card-body">
-                <form action="<%=request.getContextPath()%>/candidates.do?id=<%=candidate.getId()%>" method="post">
+                <form action="<c:url value="/posts.do?id=${candidate.id}" />" method="post">
                     <div class="form-group">
                         <label>Имя</label>
-                        <input type="text" name="name" class="form-control" value="<%=candidate.getName()%>">
+                        <input type="text" name="name" class="form-control" value="<c:out value="${candidate.name}" />">
                     </div>
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form>

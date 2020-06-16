@@ -1,7 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@ page import="ru.job4j.dream.store.Store" %>
-<%@ page import="ru.job4j.dream.model.Candidate" %>
-<%@ page import="java.util.Collection" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -23,10 +21,6 @@
     <title>Работа мечты</title>
 </head>
 <body>
-<%
-    Collection<Candidate> candidates = request.getAttribute("candidates") == null ? Store.instOf().findAllCandidates() : (Collection<Candidate>) request.getAttribute("candidates");
-%>
-
 <div class="container pt-3">
     <div class="row">
         <div class="card" style="width: 100%">
@@ -41,16 +35,16 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <% for (Candidate candidate : (Collection<Candidate>) request.getAttribute("candidates")) { %>
-                    <tr>
-                        <td>
-                            <a href="<%=request.getContextPath()%>/edit.do?entity=candidate&id=<%=candidate.getId()%>">
-                                <i class="fa fa-edit mr-3"></i>
-                            </a>
-                            <%= candidate.getName() %>
-                        </td>
-                    </tr>
-                    <% } %>
+                    <c:forEach var="candidate" items="${candidates}">
+                        <tr>
+                            <td>
+                                <a href='<c:url value="/edit.do?entity=candidate&id=${candidate.id}" />'>
+                                    <i class="fa fa-edit mr-3"></i>
+                                </a>
+                                <c:out value="${candidate.name}" />
+                            </td>
+                        </tr>
+                    </c:forEach>
                     </tbody>
                 </table>
             </div>
