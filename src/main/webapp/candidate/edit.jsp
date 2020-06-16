@@ -1,6 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="ru.job4j.dream.store.Store" %>
 <%@ page import="ru.job4j.dream.model.Candidate" %>
+<%
+    if (request.getHeader("referer") == null) {
+        response.sendRedirect(request.getContextPath() + "/index.do");
+    }
+%>
 <!doctype html>
 <html lang="en">
 <head>

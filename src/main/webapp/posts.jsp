@@ -50,7 +50,7 @@
                     <% for (Post post : posts) { %>
                     <tr>
                         <td>
-                            <a href="<%=request.getContextPath()%>/post/edit.jsp?id=<%=post.getId()%>">
+                            <a href="<%=request.getContextPath()%>/edit.do?entity=post&id=<%=post.getId()%>">
                                 <i class="fa fa-edit mr-3"></i>
                             </a>
                             <%= post.getName() %>

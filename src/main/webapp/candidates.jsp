@@ -44,7 +44,7 @@
                     <% for (Candidate candidate : (Collection<Candidate>) request.getAttribute("candidates")) { %>
                     <tr>
                         <td>
-                            <a href="<%=request.getContextPath()%>/candidate/edit.jsp?id=<%=candidate.getId()%>">
+                            <a href="<%=request.getContextPath()%>/edit.do?entity=candidate&id=<%=candidate.getId()%>">
                                 <i class="fa fa-edit mr-3"></i>
                             </a>
                             <%= candidate.getName() %>

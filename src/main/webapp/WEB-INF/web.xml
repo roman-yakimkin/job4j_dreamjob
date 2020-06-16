@@ -30,4 +30,13 @@
     <servlet-name>IndexServlet</servlet-name>
     <url-pattern>/index.do</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>EditServlet</servlet-name>
+    <servlet-class>ru.job4j.dream.servlet.EditServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EditServlet</servlet-name>
+    <url-pattern>/edit.do</url-pattern>
+  </servlet-mapping>
 </web-app>
