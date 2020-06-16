@@ -2,7 +2,7 @@ package ru.job4j.dream.servlet;
 
 import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.Post;
-import ru.job4j.dream.store.Store;
+import ru.job4j.dream.store.MemStore;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -27,7 +27,7 @@ public class EditServlet extends HttpServlet {
                 Post post = new Post(0, "");
                 if (req.getParameter("id") != null) {
                     req.setAttribute("id", id);
-                    post = Store.instOf().findPostById(Integer.valueOf(id));
+                    post = MemStore.instOf().findPostById(Integer.valueOf(id));
                 }
                 req.setAttribute("post", post);
                 req.getRequestDispatcher("post/edit.jsp" + params).forward(req, resp);
@@ -36,7 +36,7 @@ public class EditServlet extends HttpServlet {
                 Candidate candidate = new Candidate(0, "");
                 if (req.getParameter("id") != null) {
                     req.setAttribute("id", id);
-                    candidate = Store.instOf().findCandidateById(Integer.valueOf(id));
+                    candidate = MemStore.instOf().findCandidateById(Integer.valueOf(id));
                 }
                 req.setAttribute("candidate", candidate);
                 req.getRequestDispatcher("candidate/edit.jsp" + params).forward(req, resp);
