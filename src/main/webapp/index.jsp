@@ -1,6 +1,6 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@ page import="ru.job4j.dream.store.MemStore" %>
-<%@ page import="ru.job4j.dream.model.Post" %>
+<%@ page session="false" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -25,16 +25,16 @@
     <div class="row">
         <ul class="nav">
             <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/posts.do">Вакансии</a>
+                <a class="nav-link" href='<c:url value="/posts.do" />' >Вакансии</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/candidates.do">Кандидаты</a>
+                <a class="nav-link" href='<c:url value="/candidates.do" />'>Кандидаты</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/edit.do?entity=post">Добавить вакансию</a>
+                <a class="nav-link" href='<c:url value="/edit.do?entity=post" />'>Добавить вакансию</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/edit.do?entity=candidate">Добавить кандидата</a>
+                <a class="nav-link" href='<c:url value="/edit.do?entity=candidate" />'>Добавить кандидата</a>
             </li>
         </ul>
     </div>

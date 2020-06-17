@@ -25,7 +25,7 @@ public class PsqlStore implements Store {
     private PsqlStore() {
         Properties config = new Properties();
         try (BufferedReader io = new BufferedReader(
-                new FileReader("db.properties")
+                new FileReader("db_dreamjob.properties")
         )) {
             config.load(io);
         } catch (Exception e) {
@@ -110,10 +110,10 @@ public class PsqlStore implements Store {
 
     private void updatePost(Post post) {
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps =  cn.prepareStatement("UPDATE post set name=? where id=?", PreparedStatement.RETURN_GENERATED_KEYS)
+             PreparedStatement ps =  cn.prepareStatement("UPDATE post set name=? where id=?")
         ) {
             ps.setString(1, post.getName());
-            ps.setString(2, String.valueOf(post.getId()));
+            ps.setInt(2, post.getId());
             ps.execute();
         } catch (Exception e) {
             e.printStackTrace();
@@ -148,10 +148,10 @@ public class PsqlStore implements Store {
 
     private void updateCandidate(Candidate candidate) {
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps =  cn.prepareStatement("UPDATE candidate set name=? where id = ?", PreparedStatement.RETURN_GENERATED_KEYS)
+             PreparedStatement ps =  cn.prepareStatement("UPDATE candidate set name=? where id = ?")
         ) {
             ps.setString(1, candidate.getName());
-            ps.setString(2, String.valueOf(candidate.getId()));
+            ps.setInt(2, candidate.getId());
             ps.execute();
         } catch (Exception e) {
             e.printStackTrace();
