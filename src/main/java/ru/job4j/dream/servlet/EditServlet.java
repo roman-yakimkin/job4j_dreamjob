@@ -1,6 +1,7 @@
 package ru.job4j.dream.servlet;
 
 import ru.job4j.dream.model.Candidate;
+import ru.job4j.dream.model.Photo;
 import ru.job4j.dream.model.Post;
 import ru.job4j.dream.store.PsqlStore;
 
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Collection;
 
 /**
  * Сервлет для редактирования сущности
@@ -33,12 +35,14 @@ public class EditServlet extends HttpServlet {
                 req.getRequestDispatcher("post/edit.jsp" + params).forward(req, resp);
                 break;
             case "candidate" :
-                Candidate candidate = new Candidate(0, "");
+                Candidate candidate = new Candidate(0, "", 0);
+                Collection<Photo> photos = PsqlStore.instOf().findAllPhotos();
                 if (req.getParameter("id") != null) {
                     req.setAttribute("id", id);
                     candidate = PsqlStore.instOf().findCandidateById(Integer.valueOf(id));
                 }
                 req.setAttribute("candidate", candidate);
+                req.setAttribute("photos", photos);
                 req.getRequestDispatcher("candidate/edit.jsp" + params).forward(req, resp);
                 break;
             default:

@@ -1,6 +1,7 @@
 package ru.job4j.dream.store;
 
 import ru.job4j.dream.model.Candidate;
+import ru.job4j.dream.model.Photo;
 import ru.job4j.dream.model.Post;
 
 import java.util.Collection;
@@ -14,10 +15,16 @@ import java.util.Collection;
 public interface Store {
     Collection<Post> findAllPosts();
     Collection<Candidate> findAllCandidates();
+    Collection<Photo> findAllPhotos();
     void savePost(Post post);
     void saveCandidate(Candidate candidate);
+    void removeCandidate(int id);
     Post findPostById(int id);
     Candidate findCandidateById(int id);
     void removeAllPosts();
     void removeAllCandidates();
+    int addPhotoRecord(String name);
+    void removePhoto(int id);
+    String getPhotoFolder();
+    Photo findPhotoById(int id);
 }

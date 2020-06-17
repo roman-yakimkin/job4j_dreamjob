@@ -22,10 +22,11 @@ public class CandidateServlet extends HttpServlet {
         req.getRequestDispatcher("candidates.jsp").forward(req, resp);
     }
 
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         req.setCharacterEncoding("UTF-8");
         PsqlStore.instOf().saveCandidate(
-                new Candidate(Integer.valueOf(req.getParameter("id")), req.getParameter("name"))
+                new Candidate(Integer.valueOf(req.getParameter("id")), req.getParameter("name"), Integer.valueOf(req.getParameter("photo")))
         );
         resp.sendRedirect(req.getContextPath() + "/candidates.do");
     }

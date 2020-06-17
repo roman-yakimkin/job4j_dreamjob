@@ -31,7 +31,9 @@
                 <table class="table">
                     <thead>
                     <tr>
+                        <th scope="col"></th>
                         <th scope="col">Названия</th>
+                        <th scope="col">Фото</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -41,7 +43,18 @@
                                 <a href='<c:url value="/edit.do?entity=candidate&id=${candidate.id}" />'>
                                     <i class="fa fa-edit mr-3"></i>
                                 </a>
+                                <a href='<c:url value="/delete.do?entity=candidate&id=${candidate.id}" />'
+                                   onclick="return confirm('Вы уверены, что хотите удалить данного кандидата ?')">
+                                    <i class="fa fa-eraser mr-3"></i>
+                                </a>
+                            </td>
+                            <td>
                                 <c:out value="${candidate.name}" />
+                            </td>
+                            <td>
+                                <c:if test="${candidate.photoId != 0}">
+                                    <img src="<c:url value='/download?id=${candidate.photoId}' />" width="100px" height="100px"/>
+                                </c:if>
                             </td>
                         </tr>
                     </c:forEach>

@@ -37,10 +37,22 @@
                 </c:if>
             </div>
             <div class="card-body">
-                <form action="<c:url value="/posts.do?id=${candidate.id}" />" method="post">
+                <form action="<c:url value="/candidates.do?id=${candidate.id}" />" method="post">
                     <div class="form-group">
                         <label>Имя</label>
                         <input type="text" name="name" class="form-control" value="<c:out value="${candidate.name}" />">
+                    </div>
+                    <div class="form-group">
+                        <label>Фотография</label>
+                        <select name="photo" class="form-control">
+                        <c:forEach var="photo" items="${photos}">
+                            <option
+                            <c:if test="${candidate.photoId == photo.id}">
+                                selected
+                            </c:if>
+                             value="<c:out value="${photo.id}" />"><c:out value="${photo.name}"/></option>
+                        </c:forEach>
+                        </select>
                     </div>
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form>
