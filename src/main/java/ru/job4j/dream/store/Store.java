@@ -28,7 +28,9 @@ public interface Store {
     void removePhoto(int id);
     String getPhotoFolder();
     Photo findPhotoById(int id);
-    User findUserByEmail(String email);
+    User findUser(String email);
+    User findUser(String email, String password);
+    User findUser(int id);
     void saveUser(User user);
     void removeUser(User user);
 }

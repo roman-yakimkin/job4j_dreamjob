@@ -30,6 +30,7 @@ import java.util.Map;
 public class UploadServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("user", req.getSession().getAttribute("user"));
         List<Integer> images = new ArrayList<>();
         for (Photo photo : PsqlStore.instOf().findAllPhotos()) {
             images.add(photo.getId());

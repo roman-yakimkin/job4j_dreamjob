@@ -14,23 +14,9 @@
 
 <div class="container">
     <div class="row">
-        <ul class="nav">
-            <li class="nav-item">
-                <a class="nav-link" href='<c:url value="/posts.do" />' >Вакансии</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href='<c:url value="/candidates.do" />'>Кандидаты</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href='<c:url value="/edit.do?entity=post" />'>Добавить вакансию</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href='<c:url value="/edit.do?entity=candidate" />'>Добавить кандидата</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp"> <c:out value="${user.name}"/> | Выйти</a>
-            </li>
-        </ul>
+        <c:import url="chunks/main-menu.jsp">
+            <c:param name="user" value="${user}" />
+        </c:import>
     </div>
     <table class="table">
         <thead>

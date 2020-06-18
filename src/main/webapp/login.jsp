@@ -1,7 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@ page import="ru.job4j.dream.model.Candidate" %>
-<%@ page import="ru.job4j.dream.store.PsqlStore" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -32,14 +30,14 @@
             <div class="card-body">
                 <form action="<c:url value="/auth.do" />" method="post">
                     <div class="form-group">
-                        <label>Почта</label>
+                        <label>e-mail</label>
                         <input type="text" class="form-control" name="email">
                     </div>
                     <div class="form-group">
                         <label>Пароль</label>
                         <input type="text" class="form-control" name="password">
                     </div>
-                    <button type="submit" class="btn btn-primary">Войти</button>
+                    <button type="submit" class="btn btn-primary">Войти</button> или <a href="<c:url value="/reg.do" />">зарегистрироваться</a>
                 </form>
             </div>
         </div>
