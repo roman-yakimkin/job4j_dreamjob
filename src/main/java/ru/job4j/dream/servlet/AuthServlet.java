@@ -2,6 +2,7 @@ package ru.job4j.dream.servlet;
 
 import ru.job4j.dream.model.User;
 
+import javax.servlet.Filter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
