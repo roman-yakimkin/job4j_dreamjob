@@ -18,6 +18,16 @@
             }
             return true;
         }
+
+        function addRow() {
+            let countRow = $("#table tr").length;
+            let countCol = $("#table tr:last td").length;
+            let $newRow = $("<tr></tr>");
+            for (let i = 1; i <= countCol; i++) {
+                $("<td>Cell #" + countRow + i + "</td>").appendTo($newRow);
+            }
+            $("#table tr:last").after($newRow);
+        }
     </script>
 </head>
 <body>
@@ -49,7 +59,7 @@
     </form>
 </div>
 <div class="container-fluid">
-    <table class="table">
+    <table class="table" id="table">
         <thead>
             <tr>
                 <th>Column #1</th>
@@ -75,7 +85,7 @@
             </tr>
         </tbody>
     </table>
+    <button type="button" class="btn btn-default" onclick="addRow();">Добавить строку в таблицу</button>
 </div>
-
 </body>
 </html>
