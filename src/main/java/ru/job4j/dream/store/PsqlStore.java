@@ -2,10 +2,7 @@ package ru.job4j.dream.store;
 
 
 import org.apache.commons.dbcp2.BasicDataSource;
-import ru.job4j.dream.model.Candidate;
-import ru.job4j.dream.model.Photo;
-import ru.job4j.dream.model.Post;
-import ru.job4j.dream.model.User;
+import ru.job4j.dream.model.*;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -82,7 +79,12 @@ public class PsqlStore implements Store {
         ) {
             try (ResultSet it = ps.executeQuery()) {
                 while (it.next()) {
-                    candidates.add(new Candidate(it.getInt("id"), it.getString("name"), it.getInt("photo_id")));
+                    candidates.add(new Candidate(
+                            it.getInt("id"),
+                            it.getString("name"),
+                            it.getInt("photo_id"),
+                            it.getInt("city_id")
+                    ));
                 }
             }
         } catch (Exception e) {
@@ -157,10 +159,11 @@ public class PsqlStore implements Store {
 
     private Candidate createCandidate(Candidate candidate) {
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps =  cn.prepareStatement("INSERT INTO candidate(name, photo_id) VALUES (?, ?)", PreparedStatement.RETURN_GENERATED_KEYS)
+             PreparedStatement ps =  cn.prepareStatement("INSERT INTO candidate(name, photo_id, city_id) VALUES (?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS)
         ) {
             ps.setString(1, candidate.getName());
             ps.setInt(2, candidate.getPhotoId());
+            ps.setInt(3, candidate.getCityId());
             ps.execute();
             try (ResultSet id = ps.getGeneratedKeys()) {
                 if (id.next()) {
@@ -175,11 +178,12 @@ public class PsqlStore implements Store {
 
     private void updateCandidate(Candidate candidate) {
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps =  cn.prepareStatement("UPDATE candidate set name = ?, photo_id = ? where id = ?")
+             PreparedStatement ps =  cn.prepareStatement("UPDATE candidate set name = ?, photo_id = ?, city_id = ? where id = ?")
         ) {
             ps.setString(1, candidate.getName());
             ps.setInt(2, candidate.getPhotoId());
-            ps.setInt(3, candidate.getId());
+            ps.setInt(3, candidate.getCityId());
+            ps.setInt(4, candidate.getId());
             ps.execute();
         } catch (Exception e) {
             e.printStackTrace();
@@ -227,7 +231,12 @@ public class PsqlStore implements Store {
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    candidate = new Candidate(rs.getInt("id"), rs.getString("name"), rs.getInt("photo_id"));
+                    candidate = new Candidate(
+                            rs.getInt("id"),
+                            rs.getString("name"),
+                            rs.getInt("photo_id"),
+                            rs.getInt("city_id")
+                    );
                 }
             }
         } catch (Exception e) {
@@ -424,5 +433,22 @@ public class PsqlStore implements Store {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public Collection<City> findAllCities() {
+        List<City> cities = new ArrayList<>();
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps =  cn.prepareStatement("SELECT * FROM city order by name")
+        ) {
+            try (ResultSet it = ps.executeQuery()) {
+                while (it.next()) {
+                    cities.add(new City(it.getInt("id"), it.getString("name")));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return cities;
     }
 }
